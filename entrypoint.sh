@@ -21,12 +21,6 @@ if [ -z "${INPUT_LABEL-}" ]; then
 	exit 1
 fi
 
-if [ -z "${TRIGGER_ACTION}" ]; then
-	echo "TRIGGER_ACTION not set"
-else
-	echo "$TRIGGER_ACTION"
-fi
-
 # Parse and create issues
 python -m trivy_report.report_issues "${INPUT_FILENAME-}"
 
