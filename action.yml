@@ -1,6 +1,6 @@
 name: "Trivy Scan Issue Reporter"
 description: "Creates GitHub Issues from Trivy scan results"
-author: 'am0s, b34rd-tek'
+author: 'Chili Piper'
 branding:
   icon: 'shield'
   color: 'orange'
