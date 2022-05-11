@@ -5,6 +5,9 @@ branding:
   icon: 'shield'
   color: 'orange'
 inputs:
+  action:
+    description: "GitHub trigger action for workflow"
+    required: true
   token:
     description: "GitHub token"
     required: true
