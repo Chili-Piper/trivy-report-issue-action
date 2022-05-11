@@ -7,7 +7,7 @@ branding:
 inputs:
   action:
     description: "GitHub trigger action for workflow"
-    required: true
+    required: false
   token:
     description: "GitHub token"
     required: true
