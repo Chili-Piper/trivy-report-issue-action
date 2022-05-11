@@ -2,6 +2,9 @@
 
 > [GitHub Action](https://github.com/features/actions) for [Trivy](https://github.com/aquasecurity/trivy) Issue Reporting
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/chili-piper/trivy-report-issue-action)
+![GitHub](https://img.shields.io/github/license/Chili-Piper/trivy-report-issue-action)
+
 This action was forked from CemitDigital. Error handling and additional functionality was added.
 
 This GitHub action reports results from a [Trivy](https://github.com/aquasecurity/trivy) vulnerability scan as GitHub issues.
