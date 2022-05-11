@@ -15,6 +15,14 @@ Issues may also be assigned to specific users, and can be attached to a GitHub p
 
 If a package has multiple vulnerabilities it will be grouped on the package and only one issue is created.
 
+## Table of Contents
+
+- [Usage](#usage)
+  - [Workflow](#workflow)  
+- [Inputs](#inputs)
+- [Building and Testing](#building-and-testing)
+- [Development](#development)
+
 ## Examples
 
 ![Issue](images/issue1.png)
