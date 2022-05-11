@@ -33,7 +33,6 @@ def main():
     if not isinstance(data, dict):
         abort(f"Data in json file {filename} does not contain a dictionary")
     github_action = os.environ.get("TRIGGER_ACTION")
-    print(github_action)
     github_repo = os.environ.get("GITHUB_REPOSITORY")
     github_token = os.environ.get("GITHUB_TOKEN")
     input_label = os.environ.get("INPUT_LABEL")
