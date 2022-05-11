@@ -1,7 +1,6 @@
 # GitHub Action - Trivy Issue Reporter
 
-[![GitHub Release][release-img]][release]
-[![License][license-img]][license]
+> [GitHub Action](https://github.com/features/actions) for [Trivy](https://github.com/aquasecurity/trivy) Issue Reporting
 
 This action was forked from CemitDigital. Error handling and additional functionality was added.
 
