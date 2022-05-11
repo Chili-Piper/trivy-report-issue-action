@@ -21,9 +21,10 @@ if [ -z "${INPUT_LABEL-}" ]; then
 	exit 1
 fi
 
-if [ -z "${TRIGGER_ACTION-}" ]; then
-	echo "TRIGGER_ACTION must be set."
-	exit 1
+if [ -z "${TRIGGER_ACTION}" ]; then
+	echo "TRIGGER_ACTION not set"
+else
+	echo "$TRIGGER_ACTION"
 fi
 
 # Parse and create issues
