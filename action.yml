@@ -2,8 +2,8 @@ name: "Trivy Scan Issue Reporter"
 description: "Creates GitHub Issues from Trivy scan results"
 author: 'am0s, b34rd-tek'
 branding:
-  icon: 'check-square'
-  color: 'blue'
+  icon: 'shield'
+  color: 'orange'
 inputs:
   token:
     description: "GitHub token"
