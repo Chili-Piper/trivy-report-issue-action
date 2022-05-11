@@ -22,7 +22,7 @@ if [ -z "${INPUT_LABEL-}" ]; then
 fi
 
 if [ -z "${TRIGGER_ACTION-}" ]; then
-	echo "ACTION must be set."
+	echo "TRIGGER_ACTION must be set."
 	exit 1
 fi
 
