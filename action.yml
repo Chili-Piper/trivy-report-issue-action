@@ -25,6 +25,7 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
+    TRIGGER_ACTION: ${{ inputs.action }}
     GITHUB_TOKEN: ${{ inputs.token }}
     INPUT_LABEL: ${{ inputs.label }}
     INPUT_ASSIGNEE: ${{ inputs.assignee }}
