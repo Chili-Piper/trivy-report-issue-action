@@ -32,6 +32,7 @@ def main():
     data: ReportDict = json.load(open(filename, "rb"))
     if not isinstance(data, dict):
         abort(f"Data in json file {filename} does not contain a dictionary")
+    github_action = os.environ.get("TRIGGER_ACTION")
     github_repo = os.environ.get("GITHUB_REPOSITORY")
     github_token = os.environ.get("GITHUB_TOKEN")
     input_label = os.environ.get("INPUT_LABEL")
