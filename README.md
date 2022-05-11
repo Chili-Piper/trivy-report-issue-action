@@ -4,6 +4,7 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/chili-piper/trivy-report-issue-action)
 ![GitHub](https://img.shields.io/github/license/Chili-Piper/trivy-report-issue-action)
+[![Trivy Scan](https://github.com/Chili-Piper/trivy-report-issue-action/actions/workflows/trivy-sca.yml/badge.svg)](https://github.com/Chili-Piper/trivy-report-issue-action/actions/workflows/trivy-sca.yml)
 
 This action was forked from CemitDigital. Error handling and additional functionality was added.
 
