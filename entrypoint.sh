@@ -4,15 +4,11 @@ set -eu
 if [ -z "${INPUT_FILENAME-}" ]; then
 	echo "INPUT_FILENAME must be set."
 	exit 1
-else
-	echo "$INPUT_FILENAME"
 fi
 
 if [ -z "${GITHUB_REPOSITORY-}" ]; then
 	echo "GITHUB_REPOSITORY must be set."
 	exit 1
-else
-	echo "$GITHUB_REPOSITORY"
 fi
 
 if [ -z "${GITHUB_TOKEN-}" ]; then
