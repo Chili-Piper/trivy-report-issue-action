@@ -71,13 +71,13 @@ def main():
         abort("Failed to fetch issue list with `gh` cli")
     try:
         existing_issues = parse_issues_json_string(stdout)
-        print(existing_issues)
+        print(f"Existing Issues: {existing_issues}")
     except TypeError as e:
         abort(f"Failed to parse GitHub issue JSON: {e}")
 
     try:
         reports = parse_results(data, existing_issues=existing_issues)
-        print(reports)
+        print(f"Reports: {reports}")
     except TypeError as e:
         abort(f"Failed to parse Trivy JSON report: {e}")
     except KeyError as e:
