@@ -30,6 +30,7 @@ def main():
     filename = args.file
 
     data: ReportDict = json.load(open(filename, "rb"))
+    print(data)
     if not isinstance(data, dict):
         abort(f"Data in json file {filename} does not contain a dictionary")
     github_action = os.environ.get("TRIGGER_ACTION")
