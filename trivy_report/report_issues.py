@@ -30,10 +30,8 @@ def main():
     filename = args.file
 
     data: ReportDict = json.load(open(filename, "rb"))
-    print("Report type: " + str(type(data)))
     if not isinstance(data, dict):
         abort(f"Data in json file {filename} does not contain a dictionary")
-    github_action = os.environ.get("TRIGGER_ACTION")
     github_repo = os.environ.get("GITHUB_REPOSITORY")
     github_token = os.environ.get("GITHUB_TOKEN")
     input_label = os.environ.get("INPUT_LABEL")
@@ -71,13 +69,11 @@ def main():
         abort("Failed to fetch issue list with `gh` cli")
     try:
         existing_issues = parse_issues_json_string(stdout)
-        print(f"Existing Issues: {existing_issues}")
     except TypeError as e:
         abort(f"Failed to parse GitHub issue JSON: {e}")
 
     try:
         reports = parse_results(data, existing_issues=existing_issues)
-        print(f"Reports: {reports}")
     except TypeError as e:
         abort(f"Failed to parse Trivy JSON report: {e}")
     except KeyError as e:
