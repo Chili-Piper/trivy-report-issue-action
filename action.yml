@@ -5,6 +5,9 @@ branding:
   icon: 'shield'
   color: 'orange'
 inputs:
+  action:
+    description: "GitHub trigger action for workflow"
+    required: false
   token:
     description: "GitHub token"
     required: true
@@ -25,6 +28,7 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
+    TRIGGER_ACTION: ${{ inputs.action }}
     GITHUB_TOKEN: ${{ inputs.token }}
     INPUT_LABEL: ${{ inputs.label }}
     INPUT_ASSIGNEE: ${{ inputs.assignee }}

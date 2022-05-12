@@ -173,8 +173,8 @@ def parse_results(data: ReportDict, existing_issues: List[str]) -> Iterator[Repo
                 for existing_issue in existing_issues:
                     issue_lower = existing_issue.lower()
                     if (
-                        issue_lower.find(endline.lower()) != -1
-                        and issue_lower.find(startline.lower()) != -1
+                        issue_lower.find(endline) != -1
+                        and issue_lower.find(startline) != -1
                     ):
                         has_issue = True
                         break
