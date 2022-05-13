@@ -86,24 +86,27 @@ def main():
     if github_event == 'pull_request':
         pr_number = os.environ.get("GITHUB_REF")
         pr_number = pr_number.split('/')[2]
+        comment_content = ''
         if issues:
             for issue in issues:
-                proc = subprocess.Popen(
-                    [
-                        "gh",
-                        "--repo",
-                        github_repo,
-                        "pr",
-                        "comment",
-                        pr_number,
-                        "--body",
-                        "Test Comment",
-                    ]
-                    + extra_args
-                )
-                proc.communicate()
-                if proc.returncode != 0:
-                    abort("Failed to create comment with `gh` cli")
+                comment_content.append(issue.body + "<br>")
+            print(comment_content)
+            proc = subprocess.Popen(
+                [
+                    "gh",
+                    "--repo",
+                    github_repo,
+                    "pr",
+                    "comment",
+                    pr_number,
+                    "--body",
+                    "Test Comment",
+                ]
+                + extra_args
+            )
+            proc.communicate()
+            if proc.returncode != 0:
+                abort("Failed to create comment with `gh` cli")
     else:
         # Generate issues
         for issue in issues:
