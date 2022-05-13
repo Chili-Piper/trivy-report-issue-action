@@ -85,7 +85,7 @@ def main():
     issues = generate_issues(reports)
 
     if github_event == 'pull_request':
-        pr_numer = os.environ.get("GITHUB_REF")
+        pr_number = os.environ.get("GITHUB_REF")
         pr_number = pr_number.split('/')[2]
         print(github_event)
         print(issues)
