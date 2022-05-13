@@ -30,10 +30,9 @@ def main():
     filename = args.file
 
     data: ReportDict = json.load(open(filename, "rb"))
-    print("Report type: " + str(type(data)))
     if not isinstance(data, dict):
         abort(f"Data in json file {filename} does not contain a dictionary")
-    github_action = os.environ.get("TRIGGER_ACTION")
+    github_event = os.environ.get("GITHUB_EVENT_NAME")
     github_repo = os.environ.get("GITHUB_REPOSITORY")
     github_token = os.environ.get("GITHUB_TOKEN")
     input_label = os.environ.get("INPUT_LABEL")
@@ -85,33 +84,70 @@ def main():
         sys.exit(0)
     issues = generate_issues(reports)
 
-    for issue in issues:
-        print(f"Creating GitHub issue `{issue.title}`")
-        print(
-            f'gh --repo "{github_repo}" issue create --title "{issue.title}" --body ... --label "{input_label}" '
-            + " ".join(extra_args)
-        )
-        proc = subprocess.Popen(
-            [
-                "gh",
-                "--repo",
-                github_repo,
-                "issue",
-                "create",
-                "--title",
-                issue.title,
-                "--body",
-                issue.body,
-                "--label",
-                input_label,
-            ]
-            + extra_args
-        )
-        proc.communicate()
-        if proc.returncode != 0:
-            abort("Failed to create issue with `gh` cli")
+    if github_event == 'pull_request':
+        pr_numer = os.environ.get("GITHUB_REF")
+        pr_number = pr_number.split('/')[2]
+        print(github_event)
+        print(issues)
+        for issue in issues:
+            proc = subprocess.Popen(
+                [
+                    "gh",
+                    "--repo",
+                    github_repo,
+                    "pr",
+                    "comment",
+                    "Test Comment",
+                ]
+                + extra_args
+            )
+            proc.communicate()
+            if proc.returncode != 0:
+                abort("Failed to create comment with `gh` cli")
+        else:
+            proc = subprocess.Popen(
+                [
+                    "gh",
+                    "--repo",
+                    github_repo,
+                    "pr",
+                    "comment",
+                    "No new vulnerabilities found",
+                ]
+                +extra_args
+            )
+            proc.communicate()
+            if proc.returncode != 0:
+                abort("Failed to create comment with `gh` cli")
     else:
-        print("No new vulnerabilities found")
+        # Generate issues
+        for issue in issues:
+            print(f"Creating GitHub issue `{issue.title}`")
+            print(
+                f'gh --repo "{github_repo}" issue create --title "{issue.title}" --body ... --label "{input_label}" '
+                + " ".join(extra_args)
+            )
+            proc = subprocess.Popen(
+                [
+                    "gh",
+                    "--repo",
+                    github_repo,
+                    "issue",
+                    "create",
+                    "--title",
+                    issue.title,
+                    "--body",
+                    issue.body,
+                    "--label",
+                    input_label,
+                ]
+                + extra_args
+            )
+            proc.communicate()
+            if proc.returncode != 0:
+                abort("Failed to create issue with `gh` cli")
+        else:
+            print("No new vulnerabilities found")
 
 
 if __name__ == "__main__":
