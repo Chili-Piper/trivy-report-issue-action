@@ -70,59 +70,40 @@ def main():
         abort("Failed to fetch issue list with `gh` cli")
     try:
         existing_issues = parse_issues_json_string(stdout)
-        print(f"Existing Issues: {existing_issues}")
     except TypeError as e:
         abort(f"Failed to parse GitHub issue JSON: {e}")
 
     try:
         reports = parse_results(data, existing_issues=existing_issues)
-        print(f"Reports: {reports}")
     except TypeError as e:
         abort(f"Failed to parse Trivy JSON report: {e}")
     except KeyError as e:
         print(f"No results from scan. Error: {e}")
         sys.exit(0)
+
     issues = generate_issues(reports)
 
     if github_event == 'pull_request':
         pr_number = os.environ.get("GITHUB_REF")
         pr_number = pr_number.split('/')[2]
-        print(github_event)
-        print(issues)
-        for issue in issues:
-            proc = subprocess.Popen(
-                [
-                    "gh",
-                    "--repo",
-                    github_repo,
-                    "pr",
-                    "comment",
-                    pr_number,
-                    "--body",
-                    "Test Comment",
-                ]
-                + extra_args
-            )
-            proc.communicate()
-            if proc.returncode != 0:
-                abort("Failed to create comment with `gh` cli")
-        else:
-            proc = subprocess.Popen(
-                [
-                    "gh",
-                    "--repo",
-                    github_repo,
-                    "pr",
-                    "comment",
-                    pr_number,
-                    "--body",
-                    "No new vulnerabilities found",
-                ]
-                +extra_args
-            )
-            proc.communicate()
-            if proc.returncode != 0:
-                abort("Failed to create comment with `gh` cli")
+        if issues:
+            for issue in issues:
+                proc = subprocess.Popen(
+                    [
+                        "gh",
+                        "--repo",
+                        github_repo,
+                        "pr",
+                        "comment",
+                        pr_number,
+                        "--body",
+                        "Test Comment",
+                    ]
+                    + extra_args
+                )
+                proc.communicate()
+                if proc.returncode != 0:
+                    abort("Failed to create comment with `gh` cli")
     else:
         # Generate issues
         for issue in issues:
