@@ -90,22 +90,23 @@ def main():
         if issues:
             for issue in issues:
                 comment_content = comment_content + issue.body + "<br>"
-            proc = subprocess.Popen(
-                [
-                    "gh",
-                    "--repo",
-                    github_repo,
-                    "pr",
-                    "comment",
-                    pr_number,
-                    "--body",
-                    comment_content,
-                ]
-                + extra_args
-            )
-            proc.communicate()
-            if proc.returncode != 0:
-                abort("Failed to create comment with `gh` cli")
+            if comment_content != ''
+                proc = subprocess.Popen(
+                    [
+                        "gh",
+                        "--repo",
+                        github_repo,
+                        "pr",
+                        "comment",
+                        pr_number,
+                        "--body",
+                        comment_content,
+                    ]
+                    + extra_args
+                )
+                proc.communicate()
+                if proc.returncode != 0:
+                    abort("Failed to create comment with `gh` cli")
     else:
         # Generate issues
         for issue in issues:
