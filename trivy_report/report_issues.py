@@ -116,7 +116,7 @@ def main():
     else:
         # Generate issues
         for issue in issues:
-            comment_content = comment_conent + issue.body + "<br>"
+            comment_content = comment_content + issue.body + "<br>"
             print(f"Creating GitHub issue `{issue.title}`")
             print(
                 f'gh --repo "{github_repo}" issue create --title "{issue.title}" --body ... --label "{input_label}" '
