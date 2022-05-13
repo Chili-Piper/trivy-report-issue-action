@@ -33,7 +33,6 @@ def main():
     if not isinstance(data, dict):
         abort(f"Data in json file {filename} does not contain a dictionary")
     github_summary = os.environ.get("GITHUB_STEP_SUMMARY")
-    github_summary.append("## Trivy Scan Results: ")
     github_event = os.environ.get("GITHUB_EVENT_NAME")
     github_repo = os.environ.get("GITHUB_REPOSITORY")
     github_token = os.environ.get("GITHUB_TOKEN")
@@ -115,7 +114,7 @@ def main():
                 proc.communicate()
                 if proc.returncode != 0:
                     abort("Failed to create comment with `gh` cli")
-        github_summary.append(comment_content)
+        github_summary = github_summary + "## Trivy Scan Summary: <br> " + comment_content
     else:
         # Generate issues
         for issue in issues:
@@ -144,7 +143,7 @@ def main():
             proc.communicate()
             if proc.returncode != 0:
                 abort("Failed to create issue with `gh` cli")
-        github_summary.append(comment_content)
+        github_summary = github_summary + "## Trivy Scan Summary: <br> " + comment_content
         else:
             print("No new vulnerabilities found")
 
