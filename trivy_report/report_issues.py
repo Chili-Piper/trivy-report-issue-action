@@ -100,7 +100,7 @@ def main():
                     "comment",
                     pr_number,
                     "--body",
-                    "Test Comment",
+                    comment_content,
                 ]
                 + extra_args
             )
