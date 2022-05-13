@@ -90,7 +90,7 @@ def main():
         if issues:
             for issue in issues:
                 comment_content = comment_content + issue.body + "<br>"
-            if comment_content != ''
+            if comment_content != '':
                 proc = subprocess.Popen(
                     [
                         "gh",
