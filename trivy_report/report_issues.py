@@ -89,7 +89,7 @@ def main():
         comment_content = ''
         if issues:
             for issue in issues:
-                comment_content.append(issue.body + "<br>")
+                comment_content = comment_content + issue.body + "<br>"
             print(comment_content)
             proc = subprocess.Popen(
                 [
