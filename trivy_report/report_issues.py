@@ -97,6 +97,7 @@ def main():
                     github_repo,
                     "pr",
                     "comment",
+                    pr_number,
                     "--body",
                     "Test Comment",
                 ]
@@ -113,6 +114,7 @@ def main():
                     github_repo,
                     "pr",
                     "comment",
+                    pr_number,
                     "--body",
                     "No new vulnerabilities found",
                 ]
