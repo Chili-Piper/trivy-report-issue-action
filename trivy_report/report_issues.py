@@ -32,6 +32,8 @@ def main():
     data: ReportDict = json.load(open(filename, "rb"))
     if not isinstance(data, dict):
         abort(f"Data in json file {filename} does not contain a dictionary")
+    github_summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    github_summary.append("## Trivy Scan Results: ")
     github_event = os.environ.get("GITHUB_EVENT_NAME")
     github_repo = os.environ.get("GITHUB_REPOSITORY")
     github_token = os.environ.get("GITHUB_TOKEN")
@@ -82,11 +84,17 @@ def main():
         sys.exit(0)
 
     issues = generate_issues(reports)
+    comment_content = ''
 
     if github_event == 'pull_request':
+        # Generate PR Comment
         pr_number = os.environ.get("GITHUB_REF")
         pr_number = pr_number.split('/')[2]
-        comment_content = ''
+        print(f"Creating GitHub PR Comments for {github_repo} pull request {pr_number}")
+        print(
+            f'gh --repo "{github_repo}" pr comment {pr_number}" --body ... " '
+            + " ".join(extra_args)
+        )
         if issues:
             for issue in issues:
                 comment_content = comment_content + issue.body + "<br>"
@@ -107,9 +115,11 @@ def main():
                 proc.communicate()
                 if proc.returncode != 0:
                     abort("Failed to create comment with `gh` cli")
+        github_summary.append(comment_content)
     else:
         # Generate issues
         for issue in issues:
+            comment_content = comment_conent + issue.body + "<br>"
             print(f"Creating GitHub issue `{issue.title}`")
             print(
                 f'gh --repo "{github_repo}" issue create --title "{issue.title}" --body ... --label "{input_label}" '
@@ -134,6 +144,7 @@ def main():
             proc.communicate()
             if proc.returncode != 0:
                 abort("Failed to create issue with `gh` cli")
+        github_summary.append(comment_content)
         else:
             print("No new vulnerabilities found")
 
