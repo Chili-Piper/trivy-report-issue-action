@@ -1,0 +1,19 @@
+name: Trivy Scan
+
+permissions:
+  contents: read
+  issues: write
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '33 3 * * 0'
+
+jobs:
+  trivy-scan-gh-issue:
+    runs-on: [cp-small]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Chili-Piper/shared-workflows/trivy@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
