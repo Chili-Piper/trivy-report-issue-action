@@ -11,7 +11,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | d
         gh && \
     rm -rf /var/lib/apt/lists/* $HOME/.python_history $HOME/.wget-hsts
 
-RUN python -m pip install --no-cache-dir --upgrade "pip==26.2.2"
+RUN python -m pip install --no-cache-dir "pip==26.2.2"
 
 ENV PYTHONPATH="/"
 
